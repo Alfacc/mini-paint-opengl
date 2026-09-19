@@ -1,0 +1,3 @@
+import numpy as np
+
+# Arquivo para os algoritmos de criar linhas (bresenham), circulos, flood fill...
