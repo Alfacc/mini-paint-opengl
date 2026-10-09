@@ -16,12 +16,13 @@ class Janela:
         if not glfw.init(): # erro ao iniciar o GLFW
             return 1
 
+        glfw.window_hint(glfw.RESIZABLE, glfw.FALSE) #desativa botao de tela cheia/redimensionar a janela
+
         self.referencia = glfw.create_window(self.largura, self.altura, self.titulo, None, None)
         if not self.referencia: # erro ao criar janela
             glfw.terminate()
             return 2
 
-        glfw.window_hint(glfw.RESIZABLE, glfw.FALSE) #desativa tela cheia/redimensionar
         glfw.make_context_current(self.referencia) # vira o novo contexto grafico
 
         # define a cor de fundo da janela
