@@ -21,6 +21,7 @@ class Janela:
             glfw.terminate()
             return 2
 
+        glfw.window_hint(glfw.RESIZABLE, glfw.FALSE) #desativa tela cheia/redimensionar
         glfw.make_context_current(self.referencia) # vira o novo contexto grafico
 
         # define a cor de fundo da janela

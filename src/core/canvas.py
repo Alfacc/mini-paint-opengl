@@ -1,4 +1,5 @@
 from OpenGL.GL import *
+import glfw
 import numpy as np
 
 # Arquivo para gerenciar qualquer operação no canvas (desenhar pixels, pegar pixels, limpar canvas)
@@ -20,6 +21,7 @@ class Canvas:
         # inversao do eixo y que o OpenGL desenhara a matriz, pois o eixo y do OpenGL é invertido (vai de baixo pra cima)
         glPixelZoom(1.0, -1.0)
 
+        # desenha toda a matriz de uma vez na tela
         glDrawPixels(self.largura, self.altura, GL_RGB, GL_UNSIGNED_BYTE, self.matriz_pixels)
 
     # limpa a matriz_pixels (fica da cor_fundo)
@@ -27,16 +29,18 @@ class Canvas:
         return np.zeros((self.altura, self.largura, 3), dtype=np.uint8) + self.cor_fundo
 
     # retorna a cor do pixel numa posicao do canva
-    def get_pixel(self, x, y):
-        if self.esta_dentro(x, y):
+    def get_pixel(self, mouse_x, mouse_y):
+        if self.esta_dentro(mouse_x, mouse_y):
+            x, y = self.corrigir_mouse(mouse_x, mouse_y)
             return self.matriz_pixels[y][x]
         return None
 
     # muda a cor de um pixel numa posicao do canva
-    def put_pixel(self, x, y, cor):
-        if self.esta_dentro(x, y):
+    def put_pixel(self, mouse_x, mouse_y, cor):
+        if self.esta_dentro(mouse_x, mouse_y):
+            x, y = self.corrigir_mouse(mouse_x, mouse_y)
             self.matriz_pixels[y][x] = cor
-
+            
     # verifica se o mouse esta dentro do canvas
     def esta_dentro(self, mouse_x, mouse_y):
         inicio_x = self.topo_esquerdo[0]
@@ -54,3 +58,9 @@ class Canvas:
         x = (self.formato_janela[0] - self.largura) // 2
         y = (self.formato_janela[1] - self.altura) // 2
         return (x,y)
+
+    def corrigir_mouse(self, mouse_x, mouse_y):
+        canvas_x = mouse_x - self.topo_esquerdo[0]
+        canvas_y = mouse_y - self.topo_esquerdo[1]
+
+        return canvas_x, canvas_y
