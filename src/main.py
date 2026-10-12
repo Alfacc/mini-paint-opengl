@@ -5,7 +5,7 @@ import imgui
 from core.janela import Janela
 from core.canvas import Canvas
 from constantes import *
-from ferramentas import Pincel
+from ferramentas import Pincel, Linha
 
 def main():
     def callback_botao_mouse(janela, botao, acao, mods):
@@ -26,7 +26,6 @@ def main():
 
     def callback_movimento_mouse(janela, pos_x, pos_y):
         x, y = int(pos_x), int(pos_y)
-        #print(f"Posicao: {x}, {y}")
 
         # Se o botão esquerdo está pressionado enquanto o mouse se move
         estado_esquerdo = glfw.get_mouse_button(janela, glfw.MOUSE_BUTTON_LEFT)
@@ -53,16 +52,23 @@ def main():
     else:
          print("Janela criada com sucesso.")
 
+    # definicoes da projecao 2D do OpenGL
+    glMatrixMode(GL_PROJECTION)
+    glOrtho(0, janela.largura, janela.altura, 0, -1, 1) # tela vai do 0 ate a larg/alt. (0,0) esta no canto superior esq
+    glMatrixMode(GL_MODELVIEW)
+    glLoadIdentity()
+
     glfw.set_mouse_button_callback(janela.referencia, callback_botao_mouse)
     glfw.set_cursor_pos_callback(janela.referencia, callback_movimento_mouse)
 
     canvas = Canvas(800, 600, COR_FUNDO_CANVAS, (janela.largura, janela.altura))
 
     cor_primaria = (0, 0, 0) #preto
-    modo_atual = ModoFerramenta.PINCEL
 
+    modo_atual = ModoFerramenta.LINHA
     ferramentas_disponiveis = {
-        ModoFerramenta.PINCEL: Pincel(canvas, cor_primaria)
+        ModoFerramenta.PINCEL: Pincel(canvas, cor_primaria),
+        ModoFerramenta.LINHA: Linha(canvas, cor_primaria)
     }
     ferramenta_atual = ferramentas_disponiveis[modo_atual]
 
@@ -71,6 +77,8 @@ def main():
         glClear(GL_COLOR_BUFFER_BIT) # poe os pixels da janela com a cor de fundo definida
 
         canvas.desenhar()
+
+        ferramenta_atual.desenhar_previa() # desenha apenas na janela, sem salvar na matriz do canvas
 
         janela.atualizar_imagem()
         janela.capturar_eventos()

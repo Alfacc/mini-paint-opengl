@@ -15,11 +15,14 @@ class Pincel(Ferramenta):
     def soltar_esquerdo(self, mouse_x, mouse_y):
         pass
 
-    def clicar_direito(self):
+    def clicar_direito(self, mouse_x, mouse_y):
         pass
 
-    def arrastar_direito(self):
+    def arrastar_direito(self, mouse_x, mouse_y):
         pass
 
-    def soltar_direito(self):
+    def soltar_direito(self, mouse_x, mouse_y):
+        pass
+
+    def desenhar_previa(self):
         pass

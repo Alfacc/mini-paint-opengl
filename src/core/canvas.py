@@ -40,6 +40,19 @@ class Canvas:
         if self.esta_dentro(mouse_x, mouse_y):
             x, y = self.corrigir_mouse(mouse_x, mouse_y)
             self.matriz_pixels[y][x] = cor
+
+    # muda a cor de pixels sem armazenar no canva
+    def desenhar_pixels(self, pontos, cor):
+        glColor3f(*cor)
+        glPointSize(1.0)
+        glBegin(GL_POINTS)
+
+        for ponto in pontos:
+            mouse_x, mouse_y = ponto
+            if self.esta_dentro(mouse_x, mouse_y):
+                glVertex2f(mouse_x + 0.5, mouse_y + 0.5)
+
+        glEnd()
             
     # verifica se o mouse esta dentro do canvas
     def esta_dentro(self, mouse_x, mouse_y):
@@ -49,7 +62,7 @@ class Canvas:
         inicio_y = self.topo_esquerdo[1]
         fim_y = inicio_y + self.altura
 
-        if inicio_x < mouse_x < fim_x and inicio_y < mouse_y < fim_y:
+        if inicio_x <= mouse_x < fim_x and inicio_y <= mouse_y < fim_y:
             return True
         return False
 

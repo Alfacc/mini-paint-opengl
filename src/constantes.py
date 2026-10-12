@@ -3,7 +3,7 @@ from enum import Enum
 class ModoFerramenta(Enum):
     PINCEL = 1 # pincel/lapis
     BORRACHA = 2
-    RETA = 3
+    LINHA = 3
     CURVA = 4
     RETANGULO_VAZIO = 5
     RETANGULO_CHEIO = 6

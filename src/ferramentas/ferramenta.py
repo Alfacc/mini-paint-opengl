@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod # permite usar classe/metodos abstratos
 class Ferramenta(ABC):
     def __init__(self, canvas):
         self.canvas = canvas
-
+    
     @abstractmethod
     def clicar_esquerdo(self):
         pass
@@ -27,4 +27,8 @@ class Ferramenta(ABC):
 
     @abstractmethod
     def soltar_direito(self):
+        pass
+
+    @abstractmethod
+    def desenhar_previa(self):
         pass
