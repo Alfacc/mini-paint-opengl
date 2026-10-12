@@ -5,7 +5,7 @@ import imgui
 from core.janela import Janela
 from core.canvas import Canvas
 from constantes import *
-from ferramentas import Pincel, Linha
+from ferramentas import Pincel, Borracha, Linha
 
 def main():
     def callback_botao_mouse(janela, botao, acao, mods):
@@ -65,9 +65,10 @@ def main():
 
     cor_primaria = (0, 0, 0) #preto
 
-    modo_atual = ModoFerramenta.LINHA
+    modo_atual = ModoFerramenta.PiNCEL
     ferramentas_disponiveis = {
         ModoFerramenta.PINCEL: Pincel(canvas, cor_primaria),
+        ModoFerramenta.BORRACHA: Borracha(canvas, janela.cor_fundo),
         ModoFerramenta.LINHA: Linha(canvas, cor_primaria)
     }
     ferramenta_atual = ferramentas_disponiveis[modo_atual]
