@@ -1,5 +1,4 @@
 from .ferramenta import Ferramenta
-from core.canvas import Canvas
 from utils.algoritmos import calcular_linha
 
 class Linha(Ferramenta):
@@ -21,8 +20,7 @@ class Linha(Ferramenta):
         # se tem os 2 pontos da linha salvos
         if self.ponto_inicial and self.ponto_final:
             self.rasterizada = calcular_linha(self.ponto_inicial[0], self.ponto_inicial[1], self.ponto_final[0], self.ponto_final[1])
-            self.canvas.desenhar_pixels(self.rasterizada, self.cor)
-
+            
     def soltar_esquerdo(self, mouse_x, mouse_y):
         # se tem os 2 pontos da linha salvos
         if self.ponto_inicial and self.ponto_final:
