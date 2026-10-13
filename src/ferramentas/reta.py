@@ -22,10 +22,6 @@ class Reta(Ferramenta):
             self.rasterizada = calcular_linha(self.ponto_inicial[0], self.ponto_inicial[1], self.ponto_final[0], self.ponto_final[1])
             
     def soltar_esquerdo(self, mouse_x, mouse_y):
-        # se tem os 2 pontos da linha salvos
-        if self.ponto_inicial and self.ponto_final:
-                self.rasterizada = calcular_linha(self.ponto_inicial[0], self.ponto_inicial[1], self.ponto_final[0], self.ponto_final[1])
-
         # salva a linha na matriz do canvas
         for ponto in self.rasterizada:
             self.canvas.put_pixel(ponto[0], ponto[1], self.cor)

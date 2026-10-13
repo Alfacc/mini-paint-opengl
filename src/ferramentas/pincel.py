@@ -17,7 +17,9 @@ class Pincel(Ferramenta):
         # array com os pontos ja pintados antes, e a os pontos entre o ultimo ponto captado e o ponto atual (uma linha)
         if self.ponto_anterior:
             # list set para apagar as duplicatas do array (caso passe o pincel em cima de onde ja foi pintado)
-            self.rasterizada = list(set(self.rasterizada + calcular_linha(self.ponto_anterior[0], self.ponto_anterior[1], mouse_x, mouse_y)))
+            self.rasterizada = list(set(
+                self.rasterizada +
+                calcular_linha(self.ponto_anterior[0], self.ponto_anterior[1], mouse_x, mouse_y)))
 
         self.ponto_anterior = (mouse_x, mouse_y)
 

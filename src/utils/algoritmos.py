@@ -12,12 +12,20 @@ def calcular_linha(x0, y0, x1, y1):
         dist_y = abs(y1 - y0) # distancia/tamanho da linha no eixo x
 
         if dist_y == 0: # totalmente horizontal
-            for x in range(x0, x1 + 1):
-                pontos.append((x, y0))
+            if x0 < x1:
+                for x in range(x0, x1 + 1): # +1 para incluir o ponto final
+                    pontos.append((x, y0))
+            else:
+                for x in range(x1, x0 + 1): # +1 para incluir o ponto final
+                    pontos.append((x, y0))
 
         elif dist_x == 0: # totalmente vertical
-            for y in range(y0, y1 + 1):
-                pontos.append((x0, y))
+            if y0 < y1:
+                for y in range(y0, y1 + 1): # +1 para incluir o ponto final
+                    pontos.append((x0, y))
+            else:
+                for y in range(y1, y0 + 1): # +1 para incluir o ponto final
+                    pontos.append((x0, y))
 
         else: # caso generico
             passo_x = 1 if x0 < x1 else -1 # 1: esq->dir e -1: dir->esq

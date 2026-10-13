@@ -5,7 +5,7 @@ import imgui
 from core.janela import Janela
 from core.canvas import Canvas
 from constantes import *
-from ferramentas import Pincel, Borracha, Reta
+from ferramentas import Pincel, Borracha, Reta, RetanguloVazio
 
 def main():
     # CALLBACKS
@@ -55,6 +55,11 @@ def main():
                 elif tecla == glfw.KEY_3:
                     modo_atual = ModoFerramenta.RETA
                     ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_4: # curvas
+                    pass
+                elif tecla == glfw.KEY_5:
+                    modo_atual = ModoFerramenta.RETANGULO_VAZIO
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
 
 
     # PROGRAMA
@@ -90,7 +95,8 @@ def main():
     ferramentas_disponiveis = {
         ModoFerramenta.PINCEL: Pincel(canvas, cor_primaria),
         ModoFerramenta.BORRACHA: Borracha(canvas, COR_FUNDO_CANVAS),
-        ModoFerramenta.RETA: Reta(canvas, cor_primaria)
+        ModoFerramenta.RETA: Reta(canvas, cor_primaria),
+        ModoFerramenta.RETANGULO_VAZIO: RetanguloVazio(canvas, cor_primaria)
     }
     ferramenta_atual = ferramentas_disponiveis[modo_atual]
 
