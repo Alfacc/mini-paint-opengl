@@ -11,7 +11,7 @@ class Canvas:
         self.cor_fundo = cor_fundo
         self.formato_janela = formato_janela
         self.topo_esquerdo = self.encontrar_topo_esquerdo()
-        self.matriz_pixels = self.limpar()
+        self.matriz_pixels = np.zeros((self.altura, self.largura, 3), dtype=np.uint8) + self.cor_fundo # canvas da cor de fundo
 
     # o OpenGL desenha toda a matriz_pixels comecando do topo_esquerdo
     def desenhar(self):
@@ -26,7 +26,7 @@ class Canvas:
 
     # limpa a matriz_pixels (fica da cor_fundo)
     def limpar(self):
-        return np.zeros((self.altura, self.largura, 3), dtype=np.uint8) + self.cor_fundo
+        self.matriz_pixels = np.zeros((self.altura, self.largura, 3), dtype=np.uint8) + self.cor_fundo
 
     # retorna a cor do pixel numa posicao do canva
     def get_pixel(self, mouse_x, mouse_y):

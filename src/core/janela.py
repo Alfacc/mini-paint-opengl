@@ -36,6 +36,9 @@ class Janela:
     def encerrar(self):
         glfw.terminate()
 
+    def fechar(self):
+        glfw.window_should_close(self.referencia)
+
     def atualizar_imagem(self):
         glfw.swap_buffers(self.referencia) # troca os buffers para atualizar a imagem da janela
 

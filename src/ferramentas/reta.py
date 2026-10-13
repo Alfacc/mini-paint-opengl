@@ -1,7 +1,7 @@
 from .ferramenta import Ferramenta
 from utils.algoritmos import calcular_linha
 
-class Linha(Ferramenta):
+class Reta(Ferramenta):
     def __init__(self, canvas, cor_atual):
         self.canvas = canvas
         self.cor = cor_atual

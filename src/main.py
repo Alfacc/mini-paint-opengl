@@ -5,37 +5,56 @@ import imgui
 from core.janela import Janela
 from core.canvas import Canvas
 from constantes import *
-from ferramentas import Pincel, Borracha, Linha
+from ferramentas import Pincel, Borracha, Reta
 
 def main():
-    def callback_botao_mouse(janela, botao, acao, mods):
-        x, y = glfw.get_cursor_pos(janela)
-        x, y = int(x), int(y)
+    # CALLBACKS
 
-        if botao == glfw.MOUSE_BUTTON_LEFT:
-            if acao == glfw.PRESS:
-                ferramenta_atual.clicar_esquerdo(x, y)
-            elif acao == glfw.RELEASE:
-                ferramenta_atual.soltar_esquerdo(x, y)
-                
-        elif botao == glfw.MOUSE_BUTTON_RIGHT:
-            if acao == glfw.PRESS:
-                ferramenta_atual.clicar_direito(x, y)
-            elif acao == glfw.RELEASE:
-                ferramenta_atual.soltar_direito(x, y)
+    def callback_botao_mouse(janela, botao, acao, mods):
+            x, y = glfw.get_cursor_pos(janela)
+            x, y = int(x), int(y)
+    
+            if botao == glfw.MOUSE_BUTTON_LEFT:
+                if acao == glfw.PRESS:
+                    ferramenta_atual.clicar_esquerdo(x, y)
+                elif acao == glfw.RELEASE:
+                    ferramenta_atual.soltar_esquerdo(x, y)
+                    
+            elif botao == glfw.MOUSE_BUTTON_RIGHT:
+                if acao == glfw.PRESS:
+                    ferramenta_atual.clicar_direito(x, y)
+                elif acao == glfw.RELEASE:
+                    ferramenta_atual.soltar_direito(x, y)
 
     def callback_movimento_mouse(janela, pos_x, pos_y):
         x, y = int(pos_x), int(pos_y)
-
+    
         # Se o botão esquerdo está pressionado enquanto o mouse se move
         estado_esquerdo = glfw.get_mouse_button(janela, glfw.MOUSE_BUTTON_LEFT)
         if estado_esquerdo == glfw.PRESS:
             ferramenta_atual.arrastar_esquerdo(x, y)
-            
+                
         # Se o botão direito está pressionado enquanto o mouse se move
         estado_direito = glfw.get_mouse_button(janela, glfw.MOUSE_BUTTON_RIGHT)
         if estado_direito == glfw.PRESS:
             ferramenta_atual.arrastar_direito(x, y)
+    
+    def callback_teclado(janela, tecla, scancode, acao, mods):
+            nonlocal ferramenta_atual, modo_atual, canvas # variaveis que vieram da main para ser usadas aqui
+            
+            if acao == glfw.PRESS:
+                if tecla == glfw.KEY_R:
+                    canvas.limpar()
+    
+                elif tecla == glfw.KEY_1:
+                    modo_atual = ModoFerramenta.PINCEL
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_2:
+                    modo_atual = ModoFerramenta.BORRACHA
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_3:
+                    modo_atual = ModoFerramenta.RETA
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
 
 
     # PROGRAMA
@@ -58,18 +77,20 @@ def main():
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
 
+    # definindo callbacks do glfw
     glfw.set_mouse_button_callback(janela.referencia, callback_botao_mouse)
     glfw.set_cursor_pos_callback(janela.referencia, callback_movimento_mouse)
+    glfw.set_key_callback(janela.referencia, callback_teclado)
 
     canvas = Canvas(800, 600, COR_FUNDO_CANVAS, (janela.largura, janela.altura))
 
     cor_primaria = (0, 0, 0) #preto
 
-    modo_atual = ModoFerramenta.PiNCEL
+    modo_atual = ModoFerramenta.PINCEL
     ferramentas_disponiveis = {
         ModoFerramenta.PINCEL: Pincel(canvas, cor_primaria),
-        ModoFerramenta.BORRACHA: Borracha(canvas, janela.cor_fundo),
-        ModoFerramenta.LINHA: Linha(canvas, cor_primaria)
+        ModoFerramenta.BORRACHA: Borracha(canvas, COR_FUNDO_CANVAS),
+        ModoFerramenta.RETA: Reta(canvas, cor_primaria)
     }
     ferramenta_atual = ferramentas_disponiveis[modo_atual]
 
