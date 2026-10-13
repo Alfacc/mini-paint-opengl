@@ -22,8 +22,6 @@ class RetanguloVazio(Ferramenta):
             ponto_intermediario_1 = (self.ponto_inicial[0], self.ponto_final[1])
             ponto_intermediario_2 = (self.ponto_final[0], self.ponto_inicial[1])
 
-            print(f"{self.ponto_inicial}, {self.ponto_final} - {ponto_intermediario_1}, {ponto_intermediario_2}")
-
             self.rasterizada = list(set(
                 calcular_linha(self.ponto_inicial[0], self.ponto_inicial[1], ponto_intermediario_1[0], ponto_intermediario_1[1]) +
                 calcular_linha(self.ponto_inicial[0], self.ponto_inicial[1], ponto_intermediario_2[0], ponto_intermediario_2[1]) +
