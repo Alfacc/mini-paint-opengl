@@ -29,7 +29,7 @@ class CirculoCheio(Ferramenta):
     def soltar_esquerdo(self, mouse_x, mouse_y):
         # salva a linha na matriz do canvas
         for ponto in self.rasterizada:
-            self.canvas.put_pixel(ponto[0], ponto[1], self.cor)
+            self.canvas.put_pixel(ponto[0], ponto[1], self.cor, usar_espessura=False)
 
         self.ponto_inicial = None
         self.ponto_final = None
@@ -48,6 +48,6 @@ class CirculoCheio(Ferramenta):
 
     def desenhar_previa(self):
         if self.rasterizada: # se temos uma previa do ponto
-            self.canvas.desenhar_pixels(self.rasterizada, self.cor) # desenha o círculo (sem salvar na matriz do canvas)
+            self.canvas.desenhar_pixels(self.rasterizada, self.cor, usar_espessura=False) # desenha o círculo (sem salvar na matriz do canvas)
 
     

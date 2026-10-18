@@ -76,6 +76,15 @@ def main():
                 elif tecla == glfw.KEY_9:
                     modo_atual = ModoFerramenta.BALDE
                     ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_P:
+                    canvas.espessura = Espessura.FINO
+                    print("Espessura: Fino (1px)")
+                elif tecla == glfw.KEY_M:
+                    canvas.espessura = Espessura.MEDIO
+                    print("Espessura: Médio (3px)")
+                elif tecla == glfw.KEY_G:
+                    canvas.espessura = Espessura.GROSSO
+                    print("Espessura: Grosso (5px)")
 
 
     # PROGRAMA

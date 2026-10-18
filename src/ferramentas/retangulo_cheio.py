@@ -23,7 +23,7 @@ class RetanguloCheio(Ferramenta):
     def soltar_esquerdo(self, mouse_x, mouse_y):
         # salva o retangulo na matriz do canvas
         for ponto in self.rasterizada:
-            self.canvas.put_pixel(ponto[0], ponto[1], self.cor)
+            self.canvas.put_pixel(ponto[0], ponto[1], self.cor, usar_espessura=False)
 
         self.ponto_inicial = None
         self.ponto_final = None
@@ -42,5 +42,5 @@ class RetanguloCheio(Ferramenta):
 
     def desenhar_previa(self):
         if self.rasterizada: # se temos uma previa da linha
-            self.canvas.desenhar_pixels(self.rasterizada, self.cor) # desenha o retangulo (sem salvar na matriz do canvas)
+            self.canvas.desenhar_pixels(self.rasterizada, self.cor, usar_espessura=False) # desenha o retangulo (sem salvar na matriz do canvas)
 

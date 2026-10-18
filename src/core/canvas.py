@@ -5,11 +5,12 @@ import numpy as np
 # Arquivo para gerenciar qualquer operação no canvas (desenhar pixels, pegar pixels, limpar canvas)
 
 class Canvas:
-    def __init__(self, largura, altura, cor_fundo, formato_janela):
+    def __init__(self, largura, altura, cor_fundo, formato_janela, espessura=1):
         self.largura = largura
         self.altura = altura
         self.cor_fundo = cor_fundo
         self.formato_janela = formato_janela
+        self.espessura = espessura # (1, 3 ou 5)
         self.topo_esquerdo = self.encontrar_topo_esquerdo()
         self.matriz_pixels = np.zeros((self.altura, self.largura, 3), dtype=np.uint8) + self.cor_fundo # canvas da cor de fundo
 
@@ -36,16 +37,21 @@ class Canvas:
         return None
 
     # muda a cor de um pixel numa posicao do canva
-    def put_pixel(self, mouse_x, mouse_y, cor):
-        if self.esta_dentro(mouse_x, mouse_y):
-            x, y = self.corrigir_mouse(mouse_x, mouse_y)
-            self.matriz_pixels[y][x] = cor
+    def put_pixel(self, mouse_x, mouse_y, cor, usar_espessura=True):
+        raio = (self.espessura // 2) if usar_espessura else 0
+
+        for dy in range(-raio, raio + 1):
+            for dx in range(-raio, raio + 1):
+                px, py = mouse_x + dx, mouse_y + dy
+                if self.esta_dentro(px, py):
+                    x, y = self.corrigir_mouse(px, py)
+                    self.matriz_pixels[y][x] = cor
 
     # muda a cor de pixels sem armazenar no canva
-    def desenhar_pixels(self, pontos, cor):
+    def desenhar_pixels(self, pontos, cor, usar_espessura=True):
         #Aceita de 0 a 255, não precisa fazer cor[0]/cor[255] etc.
         glColor3ub(*cor)
-        glPointSize(1.0)
+        glPointSize(float(self.espessura if usar_espessura else 1))
         glBegin(GL_POINTS)
 
         for ponto in pontos:

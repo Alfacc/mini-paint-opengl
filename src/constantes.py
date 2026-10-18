@@ -23,3 +23,8 @@ class Paleta:
     AMARELO  = (255, 255, 0)
     CIANO    = (0, 255, 255)
     MAGENTA  = (255, 0, 255)
+
+class Espessura:
+    FINO = 1    # 1x1 pixel
+    MEDIO = 3   # 3x3 pixels (raio = 1 ao redor do centro)
+    GROSSO = 5  # 5x5 pixels (raio = 2 ao redor do centro)

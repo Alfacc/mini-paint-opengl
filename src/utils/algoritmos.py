@@ -158,7 +158,7 @@ def flood_fill(canvas, x0, y0, cor, vizinhanca=4):
         
     # deque é igual a uma lista, mas o popleft() é instantâneo (não trava se pintar a tela toda)
     fila = deque([(x0, y0)])
-    canvas.put_pixel(x0, y0, cor)
+    canvas.put_pixel(x0, y0, cor, usar_espessura=False)
 
     while len(fila) > 0:
         x, y = fila.popleft()
@@ -171,6 +171,6 @@ def flood_fill(canvas, x0, y0, cor, vizinhanca=4):
             
             # Se cor vizinha é 'real' e está na cor alvo, pinta ela
             if cor_vizinha is not None and np.array_equal(cor_vizinha, cor_alvo):
-                canvas.put_pixel(novo_x, novo_y, cor)
+                canvas.put_pixel(novo_x, novo_y, cor, usar_espessura=False)
                 fila.append((novo_x, novo_y))
 
