@@ -1,5 +1,9 @@
 from .pincel import Pincel
 from .borracha import Borracha
+from .curva import Curva
 from .reta import Reta
-
 from .retangulo_vazio import RetanguloVazio
+from .retangulo_cheio import RetanguloCheio
+from .circulo_vazio import CirculoVazio
+from .circulo_cheio import CirculoCheio
+from .balde import Balde

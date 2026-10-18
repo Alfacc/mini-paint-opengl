@@ -4,8 +4,9 @@ import imgui
 
 from core.janela import Janela
 from core.canvas import Canvas
+from core.exportar import Exportar
 from constantes import *
-from ferramentas import Pincel, Borracha, Reta, RetanguloVazio
+from ferramentas import Pincel, Borracha, Curva, Reta, RetanguloVazio, RetanguloCheio, CirculoVazio, CirculoCheio, Balde
 
 def main():
     # CALLBACKS
@@ -45,7 +46,8 @@ def main():
             if acao == glfw.PRESS:
                 if tecla == glfw.KEY_R:
                     canvas.limpar()
-    
+                elif tecla == glfw.KEY_S:
+                    Exportar(canvas, "desenho.png")
                 elif tecla == glfw.KEY_1:
                     modo_atual = ModoFerramenta.PINCEL
                     ferramenta_atual = ferramentas_disponiveis[modo_atual]
@@ -55,10 +57,24 @@ def main():
                 elif tecla == glfw.KEY_3:
                     modo_atual = ModoFerramenta.RETA
                     ferramenta_atual = ferramentas_disponiveis[modo_atual]
-                elif tecla == glfw.KEY_4: # curvas
+                elif tecla == glfw.KEY_4:
+                    modo_atual = ModoFerramenta.CURVA
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
                     pass
                 elif tecla == glfw.KEY_5:
                     modo_atual = ModoFerramenta.RETANGULO_VAZIO
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_6:
+                    modo_atual = ModoFerramenta.RETANGULO_CHEIO
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_7:
+                    modo_atual = ModoFerramenta.CIRCULO_VAZIO
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_8:
+                    modo_atual = ModoFerramenta.CIRCULO_CHEIO
+                    ferramenta_atual = ferramentas_disponiveis[modo_atual]
+                elif tecla == glfw.KEY_9:
+                    modo_atual = ModoFerramenta.BALDE
                     ferramenta_atual = ferramentas_disponiveis[modo_atual]
 
 
@@ -95,8 +111,13 @@ def main():
     ferramentas_disponiveis = {
         ModoFerramenta.PINCEL: Pincel(canvas, cor_primaria),
         ModoFerramenta.BORRACHA: Borracha(canvas, COR_FUNDO_CANVAS),
+        ModoFerramenta.CURVA: Curva(canvas, cor_primaria),
         ModoFerramenta.RETA: Reta(canvas, cor_primaria),
-        ModoFerramenta.RETANGULO_VAZIO: RetanguloVazio(canvas, cor_primaria)
+        ModoFerramenta.RETANGULO_VAZIO: RetanguloVazio(canvas, cor_primaria),
+        ModoFerramenta.RETANGULO_CHEIO: RetanguloCheio(canvas, cor_primaria),
+        ModoFerramenta.CIRCULO_VAZIO: CirculoVazio(canvas, cor_primaria),
+        ModoFerramenta.CIRCULO_CHEIO: CirculoCheio(canvas, cor_primaria),
+        ModoFerramenta.BALDE: Balde(canvas, cor_primaria)
     }
     ferramenta_atual = ferramentas_disponiveis[modo_atual]
 

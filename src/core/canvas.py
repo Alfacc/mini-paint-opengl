@@ -43,7 +43,8 @@ class Canvas:
 
     # muda a cor de pixels sem armazenar no canva
     def desenhar_pixels(self, pontos, cor):
-        glColor3f(*cor)
+        #Aceita de 0 a 255, não precisa fazer cor[0]/cor[255] etc.
+        glColor3ub(*cor)
         glPointSize(1.0)
         glBegin(GL_POINTS)
 
